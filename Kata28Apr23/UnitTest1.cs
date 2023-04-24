@@ -31,4 +31,49 @@ public class Tests
         
         Assert.That(rover.Position, Is.EqualTo(new Position(expectedX, expectedY)));
     }
+
+    [TestCase(Direction.North, new [] {'l'}, Direction.West)]
+    [TestCase(Direction.North, new [] {'r'}, Direction.East)]
+    [TestCase(Direction.East, new [] {'l'}, Direction.North)]
+    [TestCase(Direction.East, new [] {'r'}, Direction.South)]
+    [TestCase(Direction.South, new [] {'l'}, Direction.East)]
+    [TestCase(Direction.South, new [] {'r'}, Direction.West)]
+    [TestCase(Direction.West, new [] {'l'}, Direction.South)]
+    [TestCase(Direction.West, new [] {'r'}, Direction.North)]
+    [TestCase(Direction.North, new [] {'r', 'r'}, Direction.South)]
+    [TestCase(Direction.North, new [] {'l', 'r', 'l'}, Direction.West)]
+    public void ProcessCommands_UpdatesDirectionCorrectly(Direction initialDirection, char[] commands, Direction expectedDirection)
+    {
+        var rover = new Rover(new Position(0, 0), initialDirection);
+        rover.ProcessCommands(commands);
+        
+        Assert.That(rover.Direction, Is.EqualTo(expectedDirection));
+    }
+
+    [TestCase(0, 0, Direction.North, new [] {'f', 'r', 'f', 'f', 'l', 'b'}, 2, 0, Direction.North)]
+    [TestCase(2, 3, Direction.East, new [] {'r', 'r', 'b', 'b', 'l', 'f', 'f', 'r'}, 4, 1, Direction.West)]
+    public void ProcessCommands_UpdatesPositionAndDirectionCorrectly(
+        double initialX, 
+        double initialY,
+        Direction initialDirection,
+        char[] commands,
+        double expectedX,
+        double expectedY,
+        Direction expectedDirection)
+    {
+        var rover = new Rover(new Position(initialX, initialY), initialDirection);
+        
+        rover.ProcessCommands(commands);
+        
+        Assert.That(rover.Position, Is.EqualTo(new Position(expectedX, expectedY)));
+        Assert.That(rover.Direction, Is.EqualTo(expectedDirection));
+    }
+    
+    [Test]
+    public void ProcessCommands_ThrowsException_WhenCommandIsInvalid()
+    {
+        var rover = new Rover(new Position(0, 0), Direction.North);
+        
+        Assert.Throws<ArgumentOutOfRangeException>(() => rover.ProcessCommands(new [] {'x'}));
+    }
 }

@@ -1,14 +1,12 @@
-using System.Diagnostics;
-
 namespace Kata28Apr23;
 
 public class Rover
 {
-    private readonly Direction _direction;
+    public Direction Direction { get; private set; }
 
     public Rover(Position position, Direction direction)
     {
-        _direction = direction;
+        Direction = direction;
         Position = position;
     }
 
@@ -21,7 +19,7 @@ public class Rover
             switch (command)
             {
                 case 'f':
-                    Position = _direction switch
+                    Position = Direction switch
                     {
                         Direction.North => Position with { Y = Position.Y + 1 },
                         Direction.East => Position with { X = Position.X + 1 },
@@ -32,7 +30,7 @@ public class Rover
                     break;
                 
                 case 'b':
-                    Position = _direction switch
+                    Position = Direction switch
                     {
                         Direction.North => Position with { Y = Position.Y - 1 },
                         Direction.East => Position with { X = Position.X - 1 },
@@ -41,7 +39,29 @@ public class Rover
                         _ => throw new ArgumentOutOfRangeException()
                     };
                     break;
-                    
+                
+                case 'l':
+                    Direction = Direction switch
+                    {
+                        Direction.North => Direction.West,
+                        Direction.East => Direction.North,
+                        Direction.South => Direction.East,
+                        Direction.West => Direction.South,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                    break;
+                
+                case 'r':
+                    Direction = Direction switch
+                    {
+                        Direction.North => Direction.East,
+                        Direction.East => Direction.South,
+                        Direction.South => Direction.West,
+                        Direction.West => Direction.North,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                    break;
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }
