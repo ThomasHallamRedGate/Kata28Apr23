@@ -21,10 +21,10 @@ public class Rover
                 case 'f':
                     Position = Direction switch
                     {
-                        Direction.North => Position with { Y = Position.Y + 1 },
-                        Direction.East => Position with { X = Position.X + 1 },
-                        Direction.South => Position with { Y = Position.Y - 1 },
-                        Direction.West => Position with { X = Position.X - 1 },
+                        Direction.North => Position with { Latitude = Position.Latitude + 1 },
+                        Direction.East => Position with { Longitude = Position.Longitude + 1 },
+                        Direction.South => Position with { Latitude = Position.Latitude - 1 },
+                        Direction.West => Position with { Longitude = Position.Longitude - 1 },
                         _ => throw new ArgumentOutOfRangeException()
                     };
                     break;
@@ -32,10 +32,10 @@ public class Rover
                 case 'b':
                     Position = Direction switch
                     {
-                        Direction.North => Position with { Y = Position.Y - 1 },
-                        Direction.East => Position with { X = Position.X - 1 },
-                        Direction.South => Position with { Y = Position.Y + 1 },
-                        Direction.West => Position with { X = Position.X + 1 },
+                        Direction.North => Position with { Latitude = Position.Latitude - 1 },
+                        Direction.East => Position with { Longitude = Position.Longitude - 1 },
+                        Direction.South => Position with { Latitude = Position.Latitude + 1 },
+                        Direction.West => Position with { Longitude = Position.Longitude + 1 },
                         _ => throw new ArgumentOutOfRangeException()
                     };
                     break;

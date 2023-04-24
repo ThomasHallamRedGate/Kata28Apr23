@@ -18,18 +18,18 @@ public class Tests
     [TestCase(0, 0, Direction.West, new [] {'b'}, 1, 0)]
     [TestCase(0, 0, Direction.North, new [] {'b','f','b','b'}, 0, -2)]
     public void ProcessCommands_UpdatesPositionCorrectly(
-        double initialX, 
-        double initialY,
+        double initialLongitude, 
+        double initialLatitude,
         Direction direction,
         char[] commands,
-        double expectedX,
-        double expectedY)
+        double expectedLongitude,
+        double expectedLatitude)
     {
-        var rover = new Rover(new Position(initialX, initialY), direction);
+        var rover = new Rover(new Position(initialLongitude, initialLatitude), direction);
         
         rover.ProcessCommands(commands);
         
-        Assert.That(rover.Position, Is.EqualTo(new Position(expectedX, expectedY)));
+        Assert.That(rover.Position, Is.EqualTo(new Position(expectedLongitude, expectedLatitude)));
     }
 
     [TestCase(Direction.North, new [] {'l'}, Direction.West)]
@@ -53,19 +53,19 @@ public class Tests
     [TestCase(0, 0, Direction.North, new [] {'f', 'r', 'f', 'f', 'l', 'b'}, 2, 0, Direction.North)]
     [TestCase(2, 3, Direction.East, new [] {'r', 'r', 'b', 'b', 'l', 'f', 'f', 'r'}, 4, 1, Direction.West)]
     public void ProcessCommands_UpdatesPositionAndDirectionCorrectly(
-        double initialX, 
-        double initialY,
+        double initialLongitude, 
+        double initialLatitude,
         Direction initialDirection,
         char[] commands,
-        double expectedX,
-        double expectedY,
+        double expectedLongitude,
+        double expectedLatitude,
         Direction expectedDirection)
     {
-        var rover = new Rover(new Position(initialX, initialY), initialDirection);
+        var rover = new Rover(new Position(initialLongitude, initialLatitude), initialDirection);
         
         rover.ProcessCommands(commands);
         
-        Assert.That(rover.Position, Is.EqualTo(new Position(expectedX, expectedY)));
+        Assert.That(rover.Position, Is.EqualTo(new Position(expectedLongitude, expectedLatitude)));
         Assert.That(rover.Direction, Is.EqualTo(expectedDirection));
     }
     
