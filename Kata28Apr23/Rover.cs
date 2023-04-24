@@ -30,6 +30,18 @@ public class Rover
                         _ => throw new ArgumentOutOfRangeException()
                     };
                     break;
+                
+                case 'b':
+                    Position = _direction switch
+                    {
+                        Direction.North => Position with { Y = Position.Y - 1 },
+                        Direction.East => Position with { X = Position.X - 1 },
+                        Direction.South => Position with { Y = Position.Y + 1 },
+                        Direction.West => Position with { X = Position.X + 1 },
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                    break;
+                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }

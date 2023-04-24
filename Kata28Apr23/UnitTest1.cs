@@ -12,6 +12,11 @@ public class Tests
     [TestCase(0, 0, Direction.South, new [] {'f'}, 0, -1)]
     [TestCase(0, 0, Direction.West, new [] {'f'}, -1, 0)]
     [TestCase(0, 0, Direction.North, new [] {'f','f','f'}, 0, 3)]
+    [TestCase(0, 0, Direction.North, new [] {'b'}, 0, -1)]
+    [TestCase(0, 0, Direction.East, new [] {'b'}, -1, 0)]
+    [TestCase(0, 0, Direction.South, new [] {'b'}, 0, 1)]
+    [TestCase(0, 0, Direction.West, new [] {'b'}, 1, 0)]
+    [TestCase(0, 0, Direction.North, new [] {'b','f','b','b'}, 0, -2)]
     public void ProcessCommands_UpdatesPositionCorrectly(
         double initialX, 
         double initialY,
