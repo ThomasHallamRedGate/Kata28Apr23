@@ -19,25 +19,97 @@ public class Rover
             switch (command)
             {
                 case 'f':
-                    Position = Direction switch
+                    switch (Direction)
                     {
-                        Direction.North => Position with { Latitude = Position.Latitude + 1 },
-                        Direction.East => Position with { Longitude = Position.Longitude + 1 },
-                        Direction.South => Position with { Latitude = Position.Latitude - 1 },
-                        Direction.West => Position with { Longitude = Position.Longitude - 1 },
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
+                        case Direction.North:
+                            Position = Position with { Latitude = Position.Latitude + 1 };
+                            
+                            if (Position.Latitude > 90)
+                            {
+                                var distanceAcrossNorthPole = Position.Latitude - 90;
+
+                                Position = Position with { Latitude = 90 - distanceAcrossNorthPole };
+                                Direction = Direction.South;
+                            }
+                            else if (Position.Latitude == 90)
+                            {
+                                Direction = Direction.South;
+                            }
+                            
+                            break;
+                        case Direction.East:
+                            Position = Position with { Longitude = Position.Longitude + 1 };
+                            break;
+                        case Direction.South:
+                            Position = Position with { Latitude = Position.Latitude - 1 };
+                            
+                            if (Position.Latitude < -90)
+                            {
+                                var distanceAcrossSouthPole = Position.Latitude + 90;
+
+                                Position = Position with { Latitude = -90 - distanceAcrossSouthPole };
+                                Direction = Direction.North;
+                            }
+                            else if (Position.Latitude == -90)
+                            {
+                                Direction = Direction.North;
+                            }
+                            
+                            break;
+                        case Direction.West:
+                            Position = Position with { Longitude = Position.Longitude - 1 };
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
                     break;
                 
                 case 'b':
-                    Position = Direction switch
+                    switch (Direction)
                     {
-                        Direction.North => Position with { Latitude = Position.Latitude - 1 },
-                        Direction.East => Position with { Longitude = Position.Longitude - 1 },
-                        Direction.South => Position with { Latitude = Position.Latitude + 1 },
-                        Direction.West => Position with { Longitude = Position.Longitude + 1 },
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
+                        case Direction.North:
+                            Position = Position with { Latitude = Position.Latitude - 1 };
+                            
+                            if (Position.Latitude < -90)
+                            {
+                                var distanceAcrossSouthPole = Position.Latitude + 90;
+
+                                Position = Position with { Latitude = -90 - distanceAcrossSouthPole };
+                                Direction = Direction.South;
+                            }
+                            else if (Position.Latitude == -90)
+                            {
+                                Direction = Direction.North;
+                            }
+                            
+                            break;
+                        case Direction.East:
+                            Position = Position with { Longitude = Position.Longitude - 1 };
+                            break;
+                        case Direction.South:
+                            Position = Position with { Latitude = Position.Latitude + 1 };
+                            
+                            if (Position.Latitude > 90)
+                            {
+                                var distanceAcrossNorthPole = Position.Latitude - 90;
+
+                                Position = Position with { Latitude = 90 - distanceAcrossNorthPole };
+                                Direction = Direction.North;
+                            }
+                            else if (Position.Latitude == 90)
+                            {
+                                Direction = Direction.South;
+                            }
+                            
+                            break;
+                        case Direction.West:
+                            Position = Position with { Longitude = Position.Longitude + 1 };
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
                     break;
                 
                 case 'l':
