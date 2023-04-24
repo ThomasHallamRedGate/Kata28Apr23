@@ -11,6 +11,7 @@ public class Tests
     [TestCase(0, 0, Direction.East, new [] {'f'}, 1, 0)]
     [TestCase(0, 0, Direction.South, new [] {'f'}, 0, -1)]
     [TestCase(0, 0, Direction.West, new [] {'f'}, -1, 0)]
+    [TestCase(0, 0, Direction.North, new [] {'f','f','f'}, 0, 3)]
     public void ProcessCommands_UpdatesPositionCorrectly(
         double initialX, 
         double initialY,

@@ -16,14 +16,23 @@ public class Rover
 
     public void ProcessCommands(char[] commands)
     {
-        
-        Position = _direction switch
+        foreach (var command in commands)
         {
-            Direction.North => Position with { Y = Position.Y + 1 },
-            Direction.East => Position with { X = Position.X + 1 },
-            Direction.South => Position with { Y = Position.Y - 1 },
-            Direction.West => Position with { X = Position.X - 1 },
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            switch (command)
+            {
+                case 'f':
+                    Position = _direction switch
+                    {
+                        Direction.North => Position with { Y = Position.Y + 1 },
+                        Direction.East => Position with { X = Position.X + 1 },
+                        Direction.South => Position with { Y = Position.Y - 1 },
+                        Direction.West => Position with { X = Position.X - 1 },
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }
